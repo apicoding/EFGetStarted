@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFGetStarted;
 
-public class BloggingContext : DbContext
+public class MessageContext : DbContext
 {
     public DbSet<Message> Messages { get; set; }
 
     public string DbPath { get; }
 
-    public BloggingContext()
+    public MessageContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);

@@ -13,7 +13,7 @@ internal class Program
 {
     private static void Main()
     {
-        using var db = new BloggingContext();
+        using var db = new MessageContext();
 
         // Note: This sample requires the database to be created before running.
         Console.WriteLine($"Database path: {db.DbPath}.");
