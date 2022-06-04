@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace EFGetStarted;
 
@@ -10,8 +8,6 @@ public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
-    public DbSet<Stock> Stocks { get; set; }
-    public DbSet<Valuation> Valuations { get; set; }
 
     public string DbPath { get; }
 
@@ -34,6 +30,8 @@ public class Blog
     public string Url { get; set; }
 
     public List<Post> Posts { get; } = new();
+    public List<object> Objects { get; } = new();
+    public Dictionary<string, object> Body { get; } = new();
 }
 
 public class Post
@@ -44,29 +42,4 @@ public class Post
 
     public int BlogId { get; set; }
     public Blog Blog { get; set; }
-}
-
-public class Stock
-{
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
-    [MaxLength(8)]
-    public string Symbol { get; set; }
-
-    [OneToMany(CascadeOperations = CascadeOperation.All)]      // One to many relationship with Valuation
-    public List<Valuation> Valuations { get; set; }
-}
-
-public class Valuation
-{
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
-
-    [ForeignKey(typeof(Stock))]     // Specify the foreign key
-    public int StockId { get; set; }
-    public DateTime Time { get; set; }
-    public decimal Price { get; set; }
-
-    [ManyToOne]      // Many to one relationship with Stock
-    public Stock Stock { get; set; }
 }
