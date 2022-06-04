@@ -6,8 +6,7 @@ namespace EFGetStarted;
 
 public class BloggingContext : DbContext
 {
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     public string DbPath { get; }
 
@@ -24,22 +23,8 @@ public class BloggingContext : DbContext
         => options.UseSqlite($"Data Source={DbPath}");
 }
 
-public class Blog
+public class Message
 {
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; } = new();
-    public List<object> Objects { get; } = new();
+    public int MessageId { get; set; }
     public Dictionary<string, object> Body { get; } = new();
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public int BlogId { get; set; }
-    public Blog Blog { get; set; }
 }
